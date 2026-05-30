@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>SPACE QUIZ PRO</title>
+    <style>
+        body { background: #020617; color: #f8fafc; font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .container { background: rgba(15, 23, 42, 0.9); border: 2px solid #38bdf8; padding: 25px; border-radius: 20px; width: 90%; max-width: 400px; text-align: center; }
+        .btn { display: block; width: 100%; padding: 12px; margin: 8px 0; background: #1e293b; border: 1px solid #38bdf8; color: white; border-radius: 8px; cursor: pointer; }
+        .helper-btn { background: #6366f1; border: none; margin-top: 10px; }
+        .correct { background: #10b981 !important; }
+        .wrong { background: #f43f5e !important; }
+    </style>
+</head>
+<body>
+    <div class="container" id="game">
+        <h2 id="question">กำลังโหลด...</h2>
+        <div id="buttons"></div>
+        <button class="btn helper-btn" onclick="useHelper()">ตัวช่วย: ตัดช้อยส์ผิด</button>
+        <button class="btn helper-btn" onclick="skip()">ตัวช่วย: ข้ามข้อนี้</button>
+        <p id="score">คะแนน: 0 / 10</p>
+    </div>
+
+    <script>
+        const quizData = [
+            {q: "โลกเป็นดาวเคราะห์ลำดับที่เท่าไหร่?", a: ["1", "2", "3", "4"], correct: 2},
+            {q: "ดาวเคราะห์ใดใหญ่ที่สุด?", a: ["โลก", "อังคาร", "พฤหัส", "เสาร์"], correct: 2},
+            {q: "ดาวเคราะห์สีแดงคือ?", a: ["ศุกร์", "อังคาร", "เนปจูน", "พุธ"], correct: 1},
+            {q: "ดวงจันทร์หมุนรอบโลกใช้เวลากี่วัน?", a: ["7", "15", "27", "30"], correct: 2},
+            {q: "ดวงอาทิตย์เป็นอะไร?", a: ["ดาวเคราะห์", "ดาวฤกษ์", "ดาวหาง", "หลุมดำ"], correct: 1},
+            {q: "ดาวที่เย็นที่สุดคือ?", a: ["เนปจูน", "ยูเรนัส", "พุธ", "ศุกร์"], correct: 1},
+            {q: "กาแล็กซีของเราคือ?", a: ["แอนโดรเมดา", "ทางช้างเผือก", "สามเหลี่ยม", "กังหัน"], correct: 1},
+            {q: "ดาวศุกร์มีฉายาว่า?", a: ["ดาวก๊าซ", "ดาวฝาแฝดโลก", "ดาวขยะ", "ดาวไฟ"], correct: 1},
+            {q: "แสงใช้เวลาเดินทางจากดวงอาทิตย์มาโลกกี่นาที?", a: ["1", "8", "15", "20"], correct: 1},
+            {q: "วัตถุใดแรงดึงดูดมากที่สุด?", a: ["โลก", "ดวงอาทิตย์", "หลุมดำ", "พฤหัส"], correct: 2}
+        ];
+
+        let currentQ = 0, score = 0;
+
+        function loadQ() {
+            let q = quizData[currentQ];
+            document.getElementById("question").innerText = q.q;
+            let btns = document.getElementById("buttons");
+            btns.innerHTML = "";
+            q.a.forEach((opt, i) => {
+                btns.innerHTML += `<button class="btn" onclick="check(${i})">${opt}</button>`;
+            });
+        }
+
+        function check(i) {
+            if(i === quizData[currentQ].correct) score++;
+            next();
+        }
+
+        function useHelper() {
+            let btns = document.getElementById("buttons").children;
+            let count = 0;
+            for(let i=0; i<btns.length; i++) {
+                if(i !== quizData[currentQ].correct && count < 1) {
+                    btns[i].style.display = "none";
+                    count++;
+                }
+            }
+        }
+
+        function skip() { next(); }
+
+        function next() {
+            currentQ++;
+            document.getElementById("score").innerText = "คะแนน: " + score + " / 10";
+            if(currentQ < quizData.length) loadQ();
+            else document.getElementById("game").innerHTML = `<h1>จบเกม!</h1><p>คะแนนรวม: ${score}/10</p><button class="btn" onclick="location.reload()">เริ่มใหม่</button>`;
+        }
+
+        loadQ();
+    </script>
+</body>
+</html>
