@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>DEEP SPACE MISSION</title>
+    <style>
+        body {
+            margin: 0;
+            background: #020617;
+            background-image: url('https://images.unsplash.com/photo-1506318137071-a8e063b4abee?auto=format&fit=crop&w=1000&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #f8fafc;
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(10px);
+            border: 2px solid #38bdf8;
+            border-radius: 20px;
+            padding: 30px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+        }
+        h1 { color: #38bdf8; font-size: 24px; margin-bottom: 20px; }
+        .option {
+            background: #1e293b;
+            border: 1px solid #38bdf8;
+            color: white;
+            padding: 15px;
+            margin: 10px 0;
+            width: 100%;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .option:hover { background: #38bdf8; color: #020617; }
+        #result { margin-top: 20px; font-weight: bold; font-size: 18px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>[ SPACE MISSION ]</h1>
+        <p>วัตถุใดมีแรงดึงดูดมหาศาลที่สุด?</p>
+        <button class="option" onclick="check('A')">A) ดาวเคราะห์น้อย</button>
+        <button class="option" onclick="check('B')">B) หลุมดำ</button>
+        <button class="option" onclick="check('C')">C) ดาวพฤหัสบดี</button>
+        <div id="result"></div>
+    </div>
+    <script>
+        function check(a) {
+            const r = document.getElementById('result');
+            if(a == 'B') {
+                r.innerHTML = "ถูกต้อง! หลุมดำทรงพลังที่สุด!";
+                r.style.color = "#10b981";
+            } else {
+                r.innerHTML = "ผิด! ลองใหม่อีกทีซิเอ็ง!";
+                r.style.color = "#f43f5e";
+            }
+        }
+    </script>
+</body>
+</html>
